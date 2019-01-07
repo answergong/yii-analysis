@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use Yii;
@@ -18,6 +19,22 @@ use frontend\models\ContactForm;
  */
 class TestController extends Controller
 {
+
+
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => 'kucha\ueditor\UEditorAction',
+                'config' => [
+                    "imageUrlPrefix" => "http://www.baidu.com",//图片访问路径前缀
+                    "imagePathFormat" => "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",//上传保存路径
+                    "imageRoot" => Yii::getAlias("@webroot/gxz"),
+                ],
+            ],
+        ];
+    }
+
     /**
      * Displays homepage.
      *
@@ -25,14 +42,41 @@ class TestController extends Controller
      */
     public function actionIndex()
     {
-        var_dump(Yii::$container);
-        $testObject = Yii::createObject([
-            'class'=>"frontend\components\Test",
-            'name'=>'new test name'
-        ],[20]);
-        print_r($testObject);die;
-        echo 1;die;
-//        return $this->render('index');
+        $as = 1;
+//        var_dump(Yii::getAlias('@web'));die;
+        if (Yii::$app->request->post()) {
+            var_dump(Yii::$app->request->post());
+        } else {
+            $model = new SignupForm();
+            return $this->render('index', [
+                'model' => $model
+            ]);
+        }
+
     }
+
+    /**
+     * 百度富文本编辑器
+     *
+     * @author   gongxiangzhu
+     * @dateTime 2019/1/7 16:07
+     *
+     * @param  integer $id
+     * @param  string  $name
+     *
+     * @return mixed
+     */
+    public function actionEditor()
+    {
+        if (Yii::$app->request->post()) {
+            var_dump(Yii::$app->request->post());
+        } else {
+            $model = new SignupForm();
+            return $this->render('editor', [
+                'model' => $model
+            ]);
+        }
+    }
+
 
 }

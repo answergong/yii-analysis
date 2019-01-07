@@ -11,6 +11,14 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+//            'uploadDir' => 'upload\img',
+//            'uploadUrl' => 'upload\img',
+//            'imageAllowExtensions'=>['jpg','png','gif']
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
